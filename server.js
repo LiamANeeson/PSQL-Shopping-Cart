@@ -33,20 +33,82 @@ app.get("/items/:id", async(req, res) => {
 });
 
 // Create a Cart
+app.post("/carts", async (req, res) => {
+    try {
+        const { userId } = req.body;
+        const cart = await pool.query("INSERT INTO cart (user_id) VALUES ($1)", [userId]);
+
+        res.json(cart.rows[0])
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
+// View Cart
+app.get("/carts/:id", async(req, res) => {
+    try {
+        const { id: cartId } = req.params;
+        const cart = await pool.query("SELECT * FROM carts WHERE cart_id = $1", [cartId]);
+
+        res.json(cart.rows[0])
+    } catch (err) {
+        console.error(err.message);        
+    }
+});
 
 // Add item to a cart 
+app.post("/line-items", async (req, res) => {
+    try {
+        const { cartId, itemId, quantity } = req.body;
+        const line = await pool.query("INSERT INTO line_items (cart_id, item_id, quantity) VALUES ($1, $2, $3)", [cartId, itemId, quantity])
+
+        res.json(line.rows[0])
+    } catch (err) {
+        console.error(err.message)
+    }
+})
 
 // Remove item from a cart
+app.delete("/line-items/:id", async (req, res) => {
+    try {
+        const { id: lineItemId } = req.params;
+
+        const deleteItem = await pool.query("DELETE FROM line_items WHERE line_item_id = $1", [lineItemId])
+        res.json(deleteItem.rows[0])
+    } catch (err) {
+        console.error(err.message)
+    }
+});
 
 // Update quantity of item within a cart
+app.patch("/line-items/:id", async (req, res) => {
+    try {
+        const { id: lineItemId } = req.params;
+        const { quantity } = req.body;
 
-// Delete item from cart
+        const updateItem = await pool.query("UPDATE line_items SET quantity = $1 WHERE line_item_id = $2", [quantity, lineItemId])
+        res.json(updateItem.rows[0])
+    } catch (err) {
+        console.error(err.message)
+    }
+});
 
 // Delete entire cart 
+app.delete("/carts/:id", async (req, res) => {
+    try {
+        const { id: cartId } = req.params;
 
-// Save cart for later
+        const deleteCart = await pool.query(`DELETE FROM "carts" WHERE cart_id = $1`, [cartId])
+        res.json(deleteCart.rows[0])
 
-// Checkout
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
+// ** Save cart for later **
+
+// ** Checkout **
 
 app.listen(port, () => {
     console.log(`Server listening on port: ${port}`);
