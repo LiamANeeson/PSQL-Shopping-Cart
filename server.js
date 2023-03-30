@@ -13,6 +13,16 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// Get item by id
+app.get("/items/:id", async(req, res) => {
+    try {
+        const { id } = req.params;
+        const item = await pool.query("SELECT * FROM items WHERE item_id = $1", [id]);
+        res.json(item.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
 
 // Get list of all items
 app.get("/items", async (req, res) => {
@@ -24,17 +34,7 @@ app.get("/items", async (req, res) => {
     }
 });
 
-// Get item by id
-app.get("/items/:id", async(req, res) => {
-    try {
-        const { id } = req.params;
-        const item = await pool.query("SELECT * FROM items WHERE item_id = $1", [id]);
 
-        res.json(item.rows[0])
-    } catch (err) {
-        console.error(err.message);
-    }
-});
 
 // Create a Cart
 app.post("/carts", async (req, res) => {

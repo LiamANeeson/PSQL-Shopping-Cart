@@ -13,7 +13,7 @@ function App() {
           <Route path = "/" element = {<HomePage />} />
           <Route path = "/home" element = {<HomePage />} />
           <Route path = "/items" element = {<AllItemsPage />} />
-          <Route path = "/item-page" element = {<ItemPage />} />
+          <Route path = "/items/:id" element = {<ItemPage />} />
           <Route path = "/cart-page" element = {<CartPage />} />
         </Routes>
       </Router>

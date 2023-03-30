@@ -19,3 +19,29 @@
     text-decoration: none;
     color: black;
 }
+
+.itemsCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #f7f7f7;
+}
+  
+.itemName {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+  
+.itemDescription {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+  
+.itemPrice {
+    font-size: 20px;
+    font-weight: bold;
+}
