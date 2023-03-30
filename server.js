@@ -1,14 +1,18 @@
 const express = require("express");
+var cors = require('cors')
 const pool = require("./config/db");
 
 const app = express();
 const port = 8000;
 
+var corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send(`<h1>Hello, World</h1>`)
-});
 
 // Get list of all items
 app.get("/items", async (req, res) => {
