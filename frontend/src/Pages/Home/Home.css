@@ -1,0 +1,34 @@
+* {
+    padding: 0%;
+    margin: 0%;
+} 
+
+.homePage-Row {
+    display: flex;
+    /* background-color: red; */
+    justify-content: center;
+    border: 4rem;
+    padding: 3rem;
+}
+
+.homePage-Title {
+    font-size: 4rem;
+}
+
+.homePage-AllItems {
+    display: flex;
+    /* background-color: red; */
+    justify-content: center;
+    border: 4rem;
+    padding: 3rem;
+
+}
+
+.allItems-Link {
+    text-decoration: none;
+    color: blue;
+}
+
+.allItems-Link:hover {
+    text-decoration: underline;
+}
