@@ -48,17 +48,16 @@ app.post("/carts", async (req, res) => {
     }
 })
 
-// View Cart
 app.get("/carts/:id", async(req, res) => {
     try {
-        const { id: cartId } = req.params;
-        const cart = await pool.query("SELECT * FROM carts WHERE cart_id = $1", [cartId]);
+        const {id:  cartId} = req.params;
+        const cart = await pool.query("SELECT * FROM cart_view WHERE cart_id = $1", [cartId])
 
-        res.json(cart.rows[0])
+        res.json(cart.rows)
     } catch (err) {
-        console.error(err.message);        
+        console.error(err.message)        
     }
-});
+})
 
 // Add item to a cart 
 app.post("/line-items", async (req, res) => {
@@ -110,9 +109,7 @@ app.delete("/carts/:id", async (req, res) => {
     }
 })
 
-// ** Save cart for later **
 
-// ** Checkout **
 
 app.listen(port, () => {
     console.log(`Server listening on port: ${port}`);
