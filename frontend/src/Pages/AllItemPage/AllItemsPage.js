@@ -11,6 +11,7 @@ import './AllItems.css'
 
 function AllItemsPage() {
   const [items, setItems] = useState([])
+  const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
     getAllItems().then(data => {
