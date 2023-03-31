@@ -7,24 +7,26 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
-import { getAllItems, addItem } from '../../Utils/utils';
+import { getAllItems, addItemToCart, addItem } from '../../Utils/utils';
 
 import './AllItems.css'
 
 function AllItemsPage() {
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
 
   useEffect(() => {
-    getAllItems().then(data => {
-      setItems(data);
-      console.log("Data Received");
-    }).catch(error => {
-      console.error(error);
-    });
+    getAllItems()
+      .then(data => {
+        setItems(data);
+        console.log("Data Received");
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, []);
 
   const handleClose = () => setShow(false);
@@ -36,7 +38,7 @@ function AllItemsPage() {
       .then(() => {
         setName("");
         setDescription("");
-        setPrice(0);
+        setPrice("");
         setShow(false); // Close modal after successful add
       })
       .catch((error) => {
@@ -93,3 +95,4 @@ function AllItemsPage() {
 }
 
 export default AllItemsPage;
+
