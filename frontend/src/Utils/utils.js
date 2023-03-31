@@ -20,6 +20,25 @@ export const getItemId = (item_id) => {
     });
 }
 
+// Add Item 
+export const addItem = (name, description, price) => {
+  const data = {
+    name: name,
+    description: description,
+    price: price
+  };
+
+  return axios.post("http://localhost:8000/items", data)
+    .then(response => {
+      console.log(response.data);
+      getAllItems(); // Call getAllItems after a successful add
+    })
+    .catch(error => {
+      console.error(error.message);
+      throw new Error("Error adding item");
+    });
+};
+
 // Add Item with a Quantity to Cart
 export const addItemToCart = (cartId, itemId, quantity) => {
   return axios.post("http://localhost:8000/line-items", {

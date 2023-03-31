@@ -34,6 +34,17 @@ app.get("/items", async (req, res) => {
     }
 });
 
+// Add Item 
+app.post("/items", async (req, res) => {
+    try {
+        const { name, description, price } = req.body;
+        const newItem = await pool.query("INSERT INTO items (name, description, price) VALUES ($1, $2, $3) RETURNING *", [name, description, price])
+
+        res.json(newItem.rows[0])
+    } catch (err) {
+        console.error(err.message)
+    }
+})
 
 
 // Create a Cart
