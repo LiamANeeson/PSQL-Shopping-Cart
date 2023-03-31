@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
@@ -59,22 +59,23 @@ function CartPage() {
 
   return (
     <Container>
-      <Row>
-        {cart.map((item) => (
-          <Col key={item.cart_item_id}>
-            <div>
-              <h2>{item.name}</h2>
-              <p>{item.description}</p>
-              <p>Quantity: 
-                <input type="number" min="1" value={item.quantity} onChange={(e) => handleQuantityChange(e, item)} />
-              </p>
-              <p>Price: {item.price}</p>
-              <p>Subtotal: {getSubtotal(item)}</p>
-              <button onClick={() => handleRemoveItem(item.line_item_id)}>Remove</button>
-            </div>
-          </Col>
-        ))}
-      </Row>
+      <Link to = "/items">Back to All Items</Link>
+        <Row>
+          {cart.map((item) => (
+            <Col key={item.cart_item_id}>
+              <div>
+                <h2>{item.name}</h2>
+                <p>{item.description}</p>
+                <p>Quantity: 
+                  <input type="number" min="1" value={item.quantity} onChange={(e) => handleQuantityChange(e, item)} />
+                </p>
+                <p>Price: {item.price}</p>
+                <p>Subtotal: {getSubtotal(item)}</p>
+                <button onClick={() => handleRemoveItem(item.line_item_id)}>Remove</button>
+              </div>
+            </Col>
+          ))}
+        </Row>
       <div>Total Price:  ${getTotalPrice()}</div>
     </Container>
   )
