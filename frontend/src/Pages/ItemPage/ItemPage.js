@@ -5,7 +5,9 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-
+import Navbar from 'react-bootstrap/Navbar'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
 import { getItemId, addItemToCart } from "../../Utils/utils";
 
@@ -29,8 +31,19 @@ function ItemPage() {
   }
 
   return (
-    <Container>
-      <Row>
+    <>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+          <Navbar.Text>
+            <a href="/carts/6">
+              <FontAwesomeIcon icon={faShoppingCart} />
+            </a>
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Navbar>
+      <Container>
+        <Row>
           <Col key={item.item_id}>
             <div>
               <h2>{item.name}</h2>
@@ -41,7 +54,7 @@ function ItemPage() {
               <Form.Group>
                 <Form.Label>Choose Quantity</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="Select Item Quantity"
                   value={quantity}
                   onChange={event => setQuantity(event.target.value)} />
@@ -50,8 +63,9 @@ function ItemPage() {
               { showAddedToCartMessage ? <h3>Item added to cart!</h3>: null }
             </Form>
           </Col>
-      </Row>
-    </Container>
+        </Row>
+      </Container>
+    </>
   );
 }
 
